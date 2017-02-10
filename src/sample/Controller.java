@@ -61,6 +61,10 @@ public class Controller extends Application{
 
         PasswordField pwBox = new PasswordField();
         grid.add(pwBox,1,2);
+
+
+
+
         grid.setGridLinesVisible(true);
 
         /*The Scene*/
