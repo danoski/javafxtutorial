@@ -11,33 +11,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import sun.swing.PrintColorUIResource;
 
 public class Controller extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Button btn = new Button();
-        btn.setText("Hello World");
-
-        //create event handler
-        btn.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World");
-            }
-        });
-
-        /*stack the pane*/
-//        StackPane root = new StackPane();
-//        root.getChildren().add(btn);
-
-        /*set the pane*/
-//        Scene scene = new Scene(root,300,150);
-
         //set the gridpane
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -62,16 +48,37 @@ public class Controller extends Application{
         PasswordField pwBox = new PasswordField();
         grid.add(pwBox,1,2);
 
+//        grid.setGridLinesVisible(true);
 
+        /*set the button*/
+        Button btn = new Button("Sing In");
+        HBox btnHbox = new HBox();
+        btnHbox.setAlignment(Pos.BOTTOM_RIGHT);
+        btnHbox.getChildren().add(btn);
+        grid.add(btnHbox,1,4);
 
+        Text actionTarget = new Text();
+        HBox textHbox = new HBox();
+        textHbox.setAlignment(Pos.BOTTOM_RIGHT);
+        textHbox.getChildren().add(actionTarget);
+        actionTarget.setTextAlignment(TextAlignment.RIGHT);
+        grid.add(textHbox, 1, 6);
 
-        grid.setGridLinesVisible(true);
+        /*set the button action*/
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                actionTarget.setFill(Color.FIREBRICK);
+                actionTarget.setText("Sign in button pressed");
+            }
+        });
 
         /*The Scene*/
-        Scene scene = new Scene(grid, 300, 275);
+        Scene scene = new Scene(grid, 350, 275);
 
         primaryStage.setTitle("Welcome JavaFX");
         primaryStage.setScene(scene);
+        scene.getStylesheets().add(Controller.class.getResource("../login/Login.css").toExternalForm());
         primaryStage.show();
     }
 
